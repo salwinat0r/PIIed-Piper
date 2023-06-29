@@ -1,11 +1,23 @@
 from fastapi import FastAPI, UploadFile, File
 from main import data_anonymizer
+from fastapi.middleware.cors import CORSMiddleware
+
+
+
 app = FastAPI(title= "PII Anonymizer ")
 
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins="http://localhost:3000/",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 def root():
-    return {"Hello": "World"}
+    return {"msg": "Ground control to Major Tom 🚀"}
 
 @app.post("/upload")
 async def pdf_upload(file: UploadFile = File(...)):
@@ -19,4 +31,4 @@ async def pdf_upload(file: UploadFile = File(...)):
     data_anonymizer(temp_file_path)
 
     # Return the anonymized PDF
-    return {"Your file has been PIIPed :)"}
+    return {"Your file has been PIIped :)"}
