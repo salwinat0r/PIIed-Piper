@@ -14,4 +14,8 @@ pip install -r requirements.txt
 uvicorn app:app --reload
 ```
 
-Open `http://127.0.0.1:8000/docs` on your browser
+In another terminal, run:
+```bash
+cd frontend
+npm start
+```
