@@ -1,5 +1,5 @@
 # PIIed Piper
-An application that anonymizes PII details from PDFs.
+An application that anonymizes PII(Personal Identifiable Information) details from PDFs.
 
 ## How to Install
 
