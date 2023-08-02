@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File
 from main import data_anonymizer
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 
 
@@ -32,3 +33,8 @@ async def pdf_upload(file: UploadFile = File(...)):
 
     # Return the anonymized PDF
     return {"Your file has been PIIped :)"}
+
+@app.get("/download")
+def download_pdf():
+    file_path = "output.pdf"
+    return FileResponse(file_path, filename="output.pdf")

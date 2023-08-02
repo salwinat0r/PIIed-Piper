@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './message.css'; // Import a CSS file to apply custom styles
 
 const App = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [outputFile, setOutputFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState(null);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -21,15 +22,22 @@ const App = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        responseType: 'blob',
       });
 
-      const outputPdf = new Blob([response.data], { type: 'application/pdf' });
-      setOutputFile(URL.createObjectURL(outputPdf));
+      setDownloadUrl(`http://localhost:8000/${response.data.filename}`);
       setLoading(false);
     } catch (error) {
       console.error(error);
       setLoading(false);
+    }
+  };
+
+  const handleDownload = () => {
+    if (downloadUrl) {
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'output.pdf';
+      link.click();
     }
   };
 
@@ -38,15 +46,14 @@ const App = () => {
       <h1>PDF Anonymizer</h1>
       <div>
         <input type="file" accept=".pdf" onChange={handleFileChange} />
-        <button onClick={handleUpload} disabled={!selectedFile || loading}>
+        <button className="download-button" onClick={handleUpload} disabled={!selectedFile || loading}>
           Upload
         </button>
       </div>
       {loading && <div>Loading...</div>}
-      {outputFile && (
+      {downloadUrl && (
         <div>
-          <h2>Output PDF</h2>
-          <iframe src={outputFile} width="100%" height="600px" title="Output PDF" />
+          <button className="download-button" onClick={handleDownload}>Download PDF</button>
         </div>
       )}
     </div>

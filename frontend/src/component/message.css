@@ -1,0 +1,13 @@
+.download-button {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    font-size: 16px;
+    padding: 10px 20px;
+    position: relative;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .download-button:hover {
+    box-shadow: blue 0px 0px 0px 2px inset, #060b05c0 10px -10px 0px -3px, rgb(31, 193, 27) 10px -10px;
+  }
