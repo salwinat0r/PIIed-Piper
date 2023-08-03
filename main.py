@@ -9,3 +9,6 @@ def data_anonymizer(file):
                         remove_metadata = True,
                         fill = 'black',
                         outline = 'black')
+    
+    file = open("output.pdf", "rb")
+    return file.read()
